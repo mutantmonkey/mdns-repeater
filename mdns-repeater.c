@@ -358,6 +358,8 @@ int main(int argc, char *argv[]) {
 
 	parse_opts(argc, argv);
 
+	unveil(pid_file, "rwc");
+
 	if ((argc - optind) <= 1) {
 		show_help(argv[0]);
 		log_message(LOG_ERR, "error: at least 2 interfaces must be specified");
@@ -395,6 +397,8 @@ int main(int argc, char *argv[]) {
 		}
 		num_socks++;
 	}
+
+	pledge("stdio rpath inet mcast tty prot_exec", NULL);
 
 	pkt_data = malloc(PACKET_SIZE);
 	if (pkt_data == NULL) {
