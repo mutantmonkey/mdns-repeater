@@ -359,6 +359,7 @@ int main(int argc, char *argv[]) {
 	parse_opts(argc, argv);
 
 	unveil(pid_file, "rwc");
+	unveil("/dev/null", "rw");
 
 	if ((argc - optind) <= 1) {
 		show_help(argv[0]);
